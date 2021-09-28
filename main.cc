@@ -197,10 +197,11 @@ void Read(BMF_Object& object, std::string path)
     geometry.positions.resize(3 * geometry.indices.size());
     for (uint32_t k = 0; k < geometry.indices.size(); k += 1)
     {
+      // NOTE: We flip the y and the z components because y should always be up.
       Assert(geometry.indices[k] < positions.size(), "Vertex index out of range");
       geometry.positions[3 * k + 0] = positions[3 * geometry.indices[k] + 0];
-      geometry.positions[3 * k + 1] = positions[3 * geometry.indices[k] + 1];
-      geometry.positions[3 * k + 2] = positions[3 * geometry.indices[k] + 2];
+      geometry.positions[3 * k + 1] = positions[3 * geometry.indices[k] + 2];
+      geometry.positions[3 * k + 2] = positions[3 * geometry.indices[k] + 1];
     }
 
     // Process colors.
