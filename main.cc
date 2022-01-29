@@ -2,6 +2,10 @@
 #include <vector>
 #include <assert.h>
 
+#ifdef __unix
+#define fopen_s(pFile,filename,mode) ((*(pFile))=fopen((filename),  (mode)))==NULL
+#endif
+
 struct BMF_Geometry
 {
   std::string           name = "";
@@ -185,7 +189,7 @@ void Read(BMF_Object& object, std::string path)
       AssertEq(GetUint32(), BMF_GOT_NORMALS);
       d = GetUint32();
     }
-      
+
     // End of mesh.
     AssertEq(d, BMF_GOT_MESH);
     d = GetUint32();
